@@ -1,6 +1,9 @@
 class LinksController < ApplicationController
+  require 'uri'
+  
   before_action :set_link, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :check_url, only: [:create, :update]
 
   # GET /links
   # GET /links.json
@@ -61,6 +64,7 @@ class LinksController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -72,4 +76,20 @@ class LinksController < ApplicationController
     def link_params
       params.require(:link).permit(:title, :url)
     end
+    
+    def valid?(url)
+      uri = URI.parse(url)
+      uri.kind_of?(URI::HTTP)
+    rescue URI::InvalidURIError
+      false
+    end
+    
+    def check_url
+      urlsub = params[:link][:url]
+      unless valid?(urlsub)
+        flash[:danger] = "URL is invalid!"
+        redirect_to request.referrer || root_url
+      end
+    end
+
 end
