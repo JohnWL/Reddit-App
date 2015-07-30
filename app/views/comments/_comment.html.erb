@@ -8,6 +8,22 @@
 			  <%= comment.user.name %>
 			  </small>
 			 </p>
+			 
+			   <div class="btn-group">
+          <%= link_to like_link_comment_path(comment), method: :put,
+                                            class: "btn btn-default btn-sm" do %>
+            <span class="glyphicon glyphicon-chevron-up"></span>
+            Like
+            <%= comment.get_upvotes.size %>
+          <% end %>
+          <%= link_to dislike_link_comment_path(comment), method: :put,
+                                               class: "btn btn-default btn-sm" do %>
+            <span class="glyphicon glyphicon-chevron-down">
+            Dislike
+            <%= link.comment.get_downvotes.size %>
+          <% end %>
+        </div>
+    
 		</div>
 
 		<div class="btn-group pull-right">

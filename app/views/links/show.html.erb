@@ -38,9 +38,6 @@
   <%= @link.comments.count %> Comments
 </h3>
 
-<div id="comments">
-  <%= render @link.comments %>
-</div>
 <%= simple_form_for [@link, Comment.new]  do |f| %>
   <div class="field">
     <%= f.text_area :body, class: "form-control" %>
@@ -48,3 +45,8 @@
   <br>
   <%= f.submit "Add Comment", class: "btn btn-primary" %>
 <% end %>
+
+<div id="comments">
+  <%= render @link.comments %>
+</div>
+

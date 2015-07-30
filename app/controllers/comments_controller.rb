@@ -28,6 +28,17 @@ class CommentsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def upvote
+    @comment.liked_by current_user
+    redirect_to :back
+  end
+  
+  def downvote
+    @comment.disliked_by current_user
+    redirect_to :back
+  end
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.

@@ -8,7 +8,12 @@ Rails.application.routes.draw do
       put 'like',    to: 'links#upvote'
       put 'dislike', to: 'links#downvote'
     end
-    resources :comments
+    resources :comments do
+      member do
+        put 'like',    to: 'comments#upvote'
+        put 'dislike', to: 'comments#downvote'
+      end
+    end
   end
   
   root 'links#index'
